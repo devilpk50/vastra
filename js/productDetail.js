@@ -21,7 +21,7 @@ async function loadProductDetail(productId) {
 
   try {
     console.log('[loadProductDetail] Fetching product:', productId);
-    const response = await fetch(`/api/products/${productId}`);
+    const response = await fetch((window.API_BASE || '') + `/api/products/${productId}`);
     
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -96,7 +96,7 @@ function addProductToCart() {
 
 async function addToCartAPI(userId, productId, quantity) {
   try {
-    const response = await fetch(`/api/cart/${userId}/add`, {
+    const response = await fetch((window.API_BASE || '') + `/api/cart/${userId}/add`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ productId, quantity })
@@ -124,7 +124,7 @@ function updateCartCount() {
   const userId = localStorage.getItem('userId');
   if (!userId) return;
 
-  fetch(`/api/cart/${userId}`)
+  fetch((window.API_BASE || '') + `/api/cart/${userId}`)
     .then(res => res.json())
     .then(data => {
       if (data.ok && data.cart) {
@@ -141,7 +141,7 @@ function updateCartCount() {
 // Load related products from the same category
 async function loadRelatedProducts(currentProduct) {
   try {
-    const response = await fetch('/api/products');
+    const response = await fetch((window.API_BASE || '') + '/api/products');
     const data = await response.json();
 
     if (data.ok && data.products) {

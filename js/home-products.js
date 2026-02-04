@@ -15,7 +15,7 @@ async function loadHomeProducts() {
 
   try {
     console.log('[loadHomeProducts] Fetching products...');
-    const res = await fetch('/api/products');
+    const res = await fetch((window.API_BASE || '') + '/api/products');
     
     if (!res.ok) {
       const errorText = await res.text();
@@ -158,7 +158,7 @@ async function homeAddToCart(productId) {
   }
 
   try {
-    const response = await fetch(`/api/cart/${userId}/add`, {
+    const response = await fetch((window.API_BASE || '') + `/api/cart/${userId}/add`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ productId, quantity: 1 })

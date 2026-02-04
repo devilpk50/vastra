@@ -20,7 +20,7 @@ function selectPayment(method) {
 
 async function loadCartForCheckout() {
   try {
-    const response = await fetch(`/api/cart/${userId}`);
+    const response = await fetch((window.API_BASE || '') + `/api/cart/${userId}`);
     const data = await response.json();
     if (!data.ok) {
       alert('Failed to load cart: ' + data.message);
@@ -101,7 +101,7 @@ async function placeOrder() {
   btn.textContent = 'Placing Order...';
 
   try {
-    const response = await fetch(`/api/orders/${userId}/create`, {
+    const response = await fetch((window.API_BASE || '') + `/api/orders/${userId}/create`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ shippingAddress })

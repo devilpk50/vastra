@@ -33,7 +33,7 @@ async function loadUserProfile() {
     console.log('Loading profile for userId:', userId);
     console.log('Token:', token);
 
-    const response = await fetch(`/api/auth/user/${userId}`, {
+    const response = await fetch((window.API_BASE || '') + `/api/auth/user/${userId}`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -89,7 +89,7 @@ async function updateUserProfile() {
   errorMsg.style.display = 'none';
 
   try {
-    const response = await fetch(`/api/auth/user/${userId}`, {
+    const response = await fetch((window.API_BASE || '') + `/api/auth/user/${userId}`, {
       method: 'PUT',
       headers: {
         'Content-Type': 'application/json',

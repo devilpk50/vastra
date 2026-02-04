@@ -26,7 +26,7 @@ window.addEventListener('navbarSearch', (e) => {
 
 async function loadProducts() {
   try {
-    const response = await fetch('/api/products');
+    const response = await fetch((window.API_BASE || '') + '/api/products');
     const data = await response.json();
     console.log('Products response:', data);
     
@@ -163,7 +163,7 @@ async function addToCart(productId, productName, price) {
   }
 
   try {
-    const response = await fetch(`/api/cart/${userId}/add`, {
+    const response = await fetch((window.API_BASE || '') + `/api/cart/${userId}/add`, {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ productId, quantity: 1 })
@@ -187,7 +187,7 @@ function updateCartCount() {
   const userId = localStorage.getItem('userId');
   if (!userId) return;
 
-  fetch(`/api/cart/${userId}`)
+  fetch((window.API_BASE || '') + `/api/cart/${userId}`)
     .then(res => res.json())
     .then(data => {
       if (data.ok && data.cart) {

@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
 async function loadCart() {
   try {
-    const response = await fetch(`/api/cart/${userId}`);
+    const response = await fetch((window.API_BASE || '') + `/api/cart/${userId}`);
     const data = await response.json();
     if (!data.ok) {
       console.error('Failed to load cart:', data.message);
@@ -96,7 +96,7 @@ async function changeQty(btn, change) {
   }
   
   try {
-    const response = await fetch(`/api/cart/${userId}/update/${productId}`, {
+    const response = await fetch((window.API_BASE || '') + `/api/cart/${userId}/update/${productId}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ quantity: qty })
@@ -131,7 +131,7 @@ async function removeItem(btn) {
   }
   
   try {
-    const response = await fetch(`/api/cart/${userId}/remove/${productId}`, {
+    const response = await fetch((window.API_BASE || '') + `/api/cart/${userId}/remove/${productId}`, {
       method: 'DELETE'
     });
     const data = await response.json();
@@ -161,7 +161,7 @@ function updateCartCount() {
   const userId = localStorage.getItem('userId');
   if (!userId) return;
 
-  fetch(`/api/cart/${userId}`)
+  fetch((window.API_BASE || '') + `/api/cart/${userId}`)
     .then(res => res.json())
     .then(data => {
       if (data.ok && data.cart) {

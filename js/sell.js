@@ -92,7 +92,7 @@ async function submitListing(name, price, stock, category, description, conditio
     submitBtn.disabled = true;
     submitBtn.innerHTML = '<span class="spinner-border spinner-border-sm me-2"></span>Submitting...';
 
-    const response = await fetch('/api/products/sell', {
+    const response = await fetch((window.API_BASE || '') + '/api/products/sell', {
       method: 'POST',
       headers: {
         'Authorization': `Bearer ${token}`,

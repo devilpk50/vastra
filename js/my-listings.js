@@ -34,7 +34,7 @@ async function loadUserProducts() {
     productsContainer.style.display = 'none';
     emptyMessage.style.display = 'none';
 
-    const response = await fetch(`/api/products/user/${userId}`, {
+    const response = await fetch((window.API_BASE || '') + `/api/products/user/${userId}`, {
       headers: {
         'Authorization': `Bearer ${token}`
       }

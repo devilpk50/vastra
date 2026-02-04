@@ -8,8 +8,18 @@
 if (document.getElementById('header')) {
   fetch('components/header.html')
       .then(response => response.text())
-      .then(data => {
+      .then(async data => {
           document.getElementById('header').innerHTML = data;
+          // Ensure config script is loaded (so window.API_BASE is available)
+          if (!window.API_BASE) {
+            await new Promise((resolve, reject) => {
+              const s = document.createElement('script');
+              s.src = '/js/config.js';
+              s.onload = resolve;
+              s.onerror = reject;
+              document.head.appendChild(s);
+            }).catch((err) => console.warn('Failed to load config script:', err));
+          }
           // Update header based on auth status
           updateAuthStatus();
           // Init navbar search
@@ -120,7 +130,7 @@ function updateCartCount() {
     return;
   }
 
-  fetch(`/api/cart/${userId}`)
+  fetch((window.API_BASE || '') + `/api/cart/${userId}`)
     .then(res => res.json())
     .then(data => {
       if (data.ok && data.cart) {
