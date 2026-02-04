@@ -158,7 +158,7 @@ async function addToCart(productId, productName, price) {
 
   if (!token || !userId) {
     alert('Please login first to add items to cart');
-    window.location.href = 'https://vastra-backend-nine.vercel.app/';
+    window.location.href = '/login.html';
     return;
   }
 
